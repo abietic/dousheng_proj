@@ -1,0 +1,158 @@
+version: '2'
+
+networks:
+  app-tier:
+    driver: bridge
+
+services:
+  dousheng_auth:
+    build:
+      context: dousheng_auth
+      target: run
+    volumes:
+      - ./dousheng_auth/config-indocker.yaml:/config.yaml
+    depends_on:
+      - mysql
+      - Etcd
+      - jaeger
+      - mongo
+    networks:
+      - app-tier
+  dousheng_userinfo:
+    build:
+      context: dousheng_userinfo
+      target: run
+    volumes:
+      - ./dousheng_userinfo/config-indocker.yaml:/config.yaml
+    depends_on:
+      - mysql
+      - Etcd
+      - jaeger
+      - mongo
+    networks:
+      - app-tier
+  dousheng_publish:
+    build:
+      context: dousheng_publish
+      target: run
+    volumes:
+      - ./dousheng_publish/config-indocker.yaml:/config.yaml
+    depends_on:
+      - mysql
+      - Etcd
+      - jaeger
+      - mongo
+    networks:
+      - app-tier
+  dousheng_router:
+    build:
+      context: dousheng_router
+      target: run
+    volumes:
+      - ./dousheng_router/config-indocker.yaml:/config.yaml
+    ports:
+      - 8888:8888
+    depends_on:
+      - mysql
+      - Etcd
+      - jaeger
+      - mongo
+    networks:
+      - app-tier
+  Etcd:
+    image: 'bitnami/etcd:3.4'
+    environment:
+      - ALLOW_NONE_AUTHENTICATION=yes
+      # - ETCD_ADVERTISE_CLIENT_URLS=http://0.0.0.0:2379
+    ports:
+      - 2379:2379
+      - 2380:2380
+    volumes:
+      - ./etcd/config:/opt/bitnami/Etcd/conf/etcd.conf.yml
+    networks:
+      - app-tier
+  mysql:
+    image: 'mysql:5.7'
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./mysql/init:/docker-entrypoint-initdb.d
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/config:/etc/mysql/conf.d
+    ports:
+      - 9910:3306
+    environment:
+      - MYSQL_DATABASE=dousheng
+      - MYSQL_ROOT_PASSWORD=123456
+      # - MYSQL_USER=gorm
+      # - MYSQL_PASSWORD=gorm
+      # - MYSQL_RANDOM_ROOT_PASSWORD="yes"
+    networks:
+      - app-tier
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - "6831:6831/udp"
+      - "16686:16686"
+    networks:
+      - app-tier
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
+    networks:
+      - app-tier
+  mongo:
+    image: mongo:6.0
+    # restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongodb/db:/data/db
+      - ./mongodb/configdb:/data/configdb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+    networks:
+      - app-tier
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: 123456
+      ME_CONFIG_MONGODB_URL: mongodb://root:123456@mongo:27017/
+    depends_on:
+      - mongo
+    networks:
+      - app-tier
+  cache:
+    image: redis:5
+    ports:
+      - 6379:6379
+    volumes:
+      - ./redis/conf/redis.conf:/etc/redis/redis.conf
+      - ./redis/data:/data
+    command: [ "redis-server", "/etc/redis/redis.conf" ]
+    networks:
+      - app-tier
+  minio:
+    image: minio/minio
+    ports:
+      - 9001:9001
+      - 9000:9000
+    volumes:
+      - ./minio/data:/data
+    command: [ "minio", "server", "/data", "--console-address", ":9001" ]
+    networks:
+      - app-tier
+  # myapp:
+  #   image: 'YOUR_APPLICATION_IMAGE'
+  #   networks:
+  #     - app-tier
+

@@ -1,0 +1,9 @@
+go 1.19
+
+use (
+	./dousheng_auth
+	./dousheng_common
+	./dousheng_publish
+	./dousheng_router
+	./dousheng_userinfo
+)
