@@ -1,0 +1,10 @@
+HELP.md
+!.gitignore
+### VS Code ###
+.vscode/
+*/output
+redis/data
+mysql/data
+mongodb/db
+minio/data
+
