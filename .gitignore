@@ -8,3 +8,4 @@ mysql/data
 mongodb/db
 minio/data
 
+redis/redis-cluster/*-data/

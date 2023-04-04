@@ -3,6 +3,12 @@ version: '2'
 networks:
   app-tier:
     driver: bridge
+  cluster-redis-net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 173.17.0.0/16
 
 services:
   dousheng_auth:
@@ -151,8 +157,94 @@ services:
     command: [ "minio", "server", "/data", "--console-address", ":9001" ]
     networks:
       - app-tier
-  # myapp:
-  #   image: 'YOUR_APPLICATION_IMAGE'
-  #   networks:
-  #     - app-tier
+  
+  envoy:
+    image: envoyproxy/envoy:contrib-dev
+    ports:
+      - 8001:8001
+      - 1999:1999
+    volumes:
+      # - ./envoy/config/envoy.yaml:/etc/envoy/envoy.yaml
+      - ./envoy/config/envoy-cluster.yaml:/etc/envoy/envoy.yaml
+      - ./envoy/config/build-cluster-proxy.sh:/run.sh
+      - ./envoy/bin/redis-cli:/bin/redis-cli
+    command: [ "bash", "/run.sh" ]
+    networks:
+      - app-tier
+      - cluster-redis-net
+    depends_on:
+      - redis-1
+
+  # 如果构建后还未设置redis cluster需要运行命令构成cluster
+  # redis-cli -a 123456 --cluster create 173.17.0.2:6379 173.17.0.3:6379 173.17.0.4:6379 \
+  # 173.17.0.5:6379 173.17.0.6:6379 173.17.0.7:6379 \
+  # --cluster-replicas 1
+  redis-1:
+    image: redis:5
+    volumes:
+      - "./redis/redis-cluster/redis-1-data:/data"
+      # - "./redis/redis-cluster/build-cluster.sh:/data/run.sh"
+      - "./redis/redis-cluster/redis.conf:/etc/redis/redis.conf"
+    networks:
+      cluster-redis-net:
+        ipv4_address: 173.17.0.2
+    command: [ "redis-server", "/etc/redis/redis.conf" ]
+    # command: [ "bash", "./run.sh" ]
+    depends_on:
+      - redis-2
+      - redis-3
+      - redis-4
+      - redis-5
+      - redis-6
+
+  redis-2:
+    image: redis:5
+    volumes:
+      - "./redis/redis-cluster/redis-2-data:/data"
+      - "./redis/redis-cluster/redis.conf:/etc/redis/redis.conf"
+    networks:
+      cluster-redis-net:
+        ipv4_address: 173.17.0.3
+    command: [ "redis-server", "/etc/redis/redis.conf" ]
+
+  redis-3:
+    image: redis:5
+    volumes:
+      - "./redis/redis-cluster/redis-3-data:/data"
+      - "./redis/redis-cluster/redis.conf:/etc/redis/redis.conf"
+    networks:
+      cluster-redis-net:
+        ipv4_address: 173.17.0.4
+    command: [ "redis-server", "/etc/redis/redis.conf" ]
+
+  redis-4:
+    image: redis:5
+    volumes:
+      - "./redis/redis-cluster/redis-4-data:/data"
+      - "./redis/redis-cluster/redis.conf:/etc/redis/redis.conf"
+    networks:
+      cluster-redis-net:
+        ipv4_address: 173.17.0.5
+    command: [ "redis-server", "/etc/redis/redis.conf" ]
+
+  redis-5:
+    image: redis:5
+    volumes:
+      - "./redis/redis-cluster/redis-5-data:/data"
+      - "./redis/redis-cluster/redis.conf:/etc/redis/redis.conf"
+    networks:
+      cluster-redis-net:
+        ipv4_address: 173.17.0.6
+    command: [ "redis-server", "/etc/redis/redis.conf" ]
+
+  redis-6:
+    image: redis:5
+    volumes:
+      - "./redis/redis-cluster/redis-6-data:/data"
+      - "./redis/redis-cluster/redis.conf:/etc/redis/redis.conf"
+    networks:
+      cluster-redis-net:
+        ipv4_address: 173.17.0.7
+    command: [ "redis-server", "/etc/redis/redis.conf" ]
+
 
