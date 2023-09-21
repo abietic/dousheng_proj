@@ -20,11 +20,11 @@ import (
 	"time"
 
 	"dousheng/common/errno"
-	"dousheng/userinfo/kitex_gen/userinfo"
+	"dousheng/userinfo/kitex_gen/base"
 )
 
 // BuildBaseResp build baseResp from error
-func BuildBaseResp(err error) *userinfo.BaseResp {
+func BuildBaseResp(err error) *base.BaseResponse {
 	if err == nil {
 		return baseResp(errno.Success)
 	}
@@ -38,6 +38,6 @@ func BuildBaseResp(err error) *userinfo.BaseResp {
 	return baseResp(s)
 }
 
-func baseResp(err errno.ErrNo) *userinfo.BaseResp {
-	return &userinfo.BaseResp{StatusCode: err.ErrCode, StatusMessage: err.ErrMsg, ServiceTime: time.Now().Unix()}
+func baseResp(err errno.ErrNo) *base.BaseResponse {
+	return &base.BaseResponse{StatusCode: err.ErrCode, StatusMessage: err.ErrMsg, ServiceTime: time.Now().Unix()}
 }

@@ -11,6 +11,7 @@ networks:
         - subnet: 173.17.0.0/16
 
 services:
+  # 负责用户注册与登录的服务
   dousheng_auth:
     build:
       context: dousheng_auth
@@ -24,6 +25,7 @@ services:
       - mongo
     networks:
       - app-tier
+  # 
   dousheng_userinfo:
     build:
       context: dousheng_userinfo

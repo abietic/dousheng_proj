@@ -19,12 +19,12 @@ import (
 	"errors"
 	"time"
 
-	"dousheng/auth/kitex_gen/auth"
+	"dousheng/auth/kitex_gen/base"
 	"dousheng/common/errno"
 )
 
 // BuildBaseResp build baseResp from error
-func BuildBaseResp(err error) *auth.BaseResp {
+func BuildBaseResp(err error) *base.BaseResponse {
 	if err == nil {
 		return baseResp(errno.Success)
 	}
@@ -38,6 +38,6 @@ func BuildBaseResp(err error) *auth.BaseResp {
 	return baseResp(s)
 }
 
-func baseResp(err errno.ErrNo) *auth.BaseResp {
-	return &auth.BaseResp{StatusCode: err.ErrCode, StatusMessage: err.ErrMsg, ServiceTime: time.Now().Unix()}
+func baseResp(err errno.ErrNo) *base.BaseResponse {
+	return &base.BaseResponse{StatusCode: err.ErrCode, StatusMessage: err.ErrMsg, ServiceTime: time.Now().Unix()}
 }
