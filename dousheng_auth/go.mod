@@ -1,6 +1,6 @@
 module dousheng/auth
 
-go 1.19
+go 1.21
 
 require (
 	github.com/apache/thrift v0.13.0
