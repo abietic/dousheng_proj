@@ -1,6 +1,6 @@
 module dousheng/common
 
-go 1.21
+go 1.19
 
 require (
 	github.com/cloudwego/hertz v0.6.0

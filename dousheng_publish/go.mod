@@ -1,6 +1,6 @@
 module dousheng/publish
 
-go 1.21
+go 1.19
 
 require (
 	github.com/apache/thrift v0.13.0
