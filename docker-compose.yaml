@@ -19,7 +19,7 @@ services:
       - mongo
     networks:
       - app-tier
-  # 在用户登录后返回
+  # 返回用户详细信息
   dousheng_userinfo:
     build:
       context: dousheng_userinfo
@@ -33,6 +33,7 @@ services:
       - mongo
     networks:
       - app-tier
+  # 用户上传视频
   dousheng_publish:
     build:
       context: dousheng_publish
@@ -46,6 +47,7 @@ services:
       - mongo
     networks:
       - app-tier
+  # http网关
   dousheng_router:
     build:
       context: dousheng_router
@@ -61,6 +63,7 @@ services:
       - mongo
     networks:
       - app-tier
+  # 
   Etcd:
     image: 'bitnami/etcd:3.4'
     environment:
@@ -73,6 +76,7 @@ services:
       - ./etcd/config:/opt/bitnami/Etcd/conf/etcd.conf.yml
     networks:
       - app-tier
+  # 关系型数据库
   mysql:
     image: 'mysql:5.7'
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
@@ -90,13 +94,17 @@ services:
       # - MYSQL_RANDOM_ROOT_PASSWORD="yes"
     networks:
       - app-tier
+  # 调用链路控制台
   jaeger:
     image: jaegertracing/all-in-one:latest
     ports:
       - "6831:6831/udp"
       - "16686:16686"
+    volumes:
+      - ./jaeger/tmp:/tmp
     networks:
       - app-tier
+  # web查看mysql
   phpmyadmin:
     image: phpmyadmin
     restart: always
@@ -106,6 +114,7 @@ services:
       - PMA_ARBITRARY=1
     networks:
       - app-tier
+  # 文档存储和web查看
   mongo:
     image: mongo:6.0
     # restart: always
@@ -132,6 +141,7 @@ services:
       - mongo
     networks:
       - app-tier
+  # 缓存，目前使用单主缓存
   cache:
     image: redis:5
     ports:
@@ -142,6 +152,7 @@ services:
     command: [ "redis-server", "/etc/redis/redis.conf" ]
     networks:
       - app-tier
+  # 用于对象存储，将视频与图片存储起来
   minio:
     image: minio/minio
     ports:
