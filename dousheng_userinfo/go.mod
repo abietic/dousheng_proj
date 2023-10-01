@@ -1,6 +1,6 @@
 module dousheng/userinfo
 
-go 1.19
+go 1.20
 
 require (
 	github.com/apache/thrift v0.13.0

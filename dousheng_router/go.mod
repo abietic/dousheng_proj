@@ -1,6 +1,6 @@
 module dousheng/router
 
-go 1.19
+go 1.20
 
 require (
 	github.com/RaymondCode/simple-demo v0.0.0-20230221080337-89b8c9434e04

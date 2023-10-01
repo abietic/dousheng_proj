@@ -1,5 +1,5 @@
 #!/bin/bash
 
-hz update -I idl -idl idl/douyin/core.proto
-hz update -I idl -idl idl/douyin/extra/first.proto
-hz update -I idl -idl idl/douyin/extra/second.proto
+hz update -I ../dousheng_idl/router/ -idl ../dousheng_idl/router/douyin/core.proto
+hz update -I ../dousheng_idl/router/ -idl ../dousheng_idl/router/douyin/first.proto
+hz update -I ../dousheng_idl/router/ -idl ../dousheng_idl/router/douyin/second.proto
