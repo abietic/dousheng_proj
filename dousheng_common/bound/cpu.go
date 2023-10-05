@@ -13,6 +13,8 @@
 // limitations under the License.
 //
 
+// 这个包来自cloudwego，主要功能是使用log和ps在cpu利用率大于80%时返回错误
+// 这是作为一个kitex server的WithBoundHandle参数输入用的，kitex server会在入站访问时检查
 package bound
 
 import (

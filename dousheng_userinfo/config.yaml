@@ -1,26 +1,25 @@
-Configs:
-  MysqlConfig:
-    URL: "root:123456@tcp(127.0.0.1:9910)/dousheng?charset=utf8&parseTime=True&loc=Local"
+MysqlConfig:
+  URL: "root:123456@tcp(127.0.0.1:9910)/dousheng?charset=utf8&parseTime=True&loc=Local"
 
-  MogoDBConfig:
-    URI: "mongodb://root:123456@127.0.0.1:27017"
+MogoDBConfig:
+  URI: "mongodb://root:123456@127.0.0.1:27017"
 
-  EtcdConfig:
-    Endpoints:
-      - "127.0.0.1:2379"
-  
-  RpcConfig:
-    ServiceNetwork: "tcp"
-    ServiceAddress: "127.0.0.1:8890"
+EtcdConfig:
+  Endpoints:
+    - "127.0.0.1:2379"
 
-  JaegerConfig:
-    Disabled: false
-    Sampler:
-      Type: "const"
-      Param: 1
-      SamplingServerURL: "http://127.0.0.1:5778/sampling"
-    Reporter:
-      LogSpans: true
-      LocalAgentHostPort : "127.0.0.1:6831"
-      
+RpcConfig:
+  ServiceNetwork: "tcp"
+  ServiceAddress: "127.0.0.1:8890"
+
+JaegerConfig:
+  Disabled: false
+  Sampler:
+    Type: "const"
+    Param: 1
+    SamplingServerURL: "http://127.0.0.1:5778/sampling"
+  Reporter:
+    LogSpans: true
+    LocalAgentHostPort : "127.0.0.1:6831"
+    
 
