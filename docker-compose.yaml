@@ -65,7 +65,7 @@ services:
       - app-tier
   # 
   Etcd:
-    image: 'bitnami/etcd:3.4'
+    image: bitnami/etcd:3.5
     environment:
       - ALLOW_NONE_AUTHENTICATION=yes
       # - ETCD_ADVERTISE_CLIENT_URLS=http://0.0.0.0:2379
@@ -78,7 +78,7 @@ services:
       - app-tier
   # 关系型数据库
   mysql:
-    image: 'mysql:5.7'
+    image: mysql:8.0.32
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
       - ./mysql/init:/docker-entrypoint-initdb.d
@@ -106,7 +106,7 @@ services:
       - app-tier
   # web查看mysql
   phpmyadmin:
-    image: phpmyadmin
+    image: phpmyadmin:5.2.1
     restart: always
     ports:
       - 8080:80
