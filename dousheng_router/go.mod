@@ -6,7 +6,7 @@ require (
 	github.com/RaymondCode/simple-demo v0.0.0-20230221080337-89b8c9434e04
 	github.com/apache/thrift v0.13.0
 	github.com/cloudwego/hertz v0.5.2
-	github.com/cloudwego/kitex v0.4.4
+	github.com/cloudwego/kitex v0.7.3
 	github.com/gavv/httpexpect/v2 v2.13.0
 	github.com/golang-jwt/jwt/v4 v4.4.1
 	github.com/hashicorp/go-uuid v1.0.1
@@ -15,7 +15,7 @@ require (
 	github.com/kitex-contrib/registry-etcd v0.1.0
 	github.com/kitex-contrib/tracer-opentracing v0.0.3
 	github.com/minio/minio-go/v7 v7.0.49
-	github.com/stretchr/testify v1.7.1
+	github.com/stretchr/testify v1.8.2
 	google.golang.org/protobuf v1.28.1
 )
 
@@ -23,18 +23,18 @@ require (
 	github.com/ajg/form v1.5.1 // indirect
 	github.com/andybalholm/brotli v1.0.4 // indirect
 	github.com/bytedance/go-tagexpr/v2 v2.9.2 // indirect
-	github.com/bytedance/gopkg v0.0.0-20220531084716-665b4f21126f // indirect
-	github.com/bytedance/sonic v1.5.0 // indirect
-	github.com/chenzhuoyu/base64x v0.0.0-20211019084208-fb5309c8db06 // indirect
-	github.com/chenzhuoyu/iasm v0.0.0-20220818063314-28c361dae733 // indirect
-	github.com/choleraehyq/pid v0.0.15 // indirect
-	github.com/cloudwego/fastpb v0.0.3 // indirect
-	github.com/cloudwego/frugal v0.1.3 // indirect
-	github.com/cloudwego/netpoll v0.3.1 // indirect
-	github.com/cloudwego/thriftgo v0.2.4 // indirect
+	github.com/bytedance/gopkg v0.0.0-20230728082804-614d0af6619b // indirect
+	github.com/bytedance/sonic v1.9.1 // indirect
+	github.com/chenzhuoyu/base64x v0.0.0-20221115062448-fe3a3abad311 // indirect
+	github.com/chenzhuoyu/iasm v0.9.0 // indirect
+	github.com/choleraehyq/pid v0.0.17 // indirect
+	github.com/cloudwego/fastpb v0.0.4 // indirect
+	github.com/cloudwego/frugal v0.1.8 // indirect
+	github.com/cloudwego/netpoll v0.5.1 // indirect
+	github.com/cloudwego/thriftgo v0.3.2-0.20230828085742-edaddf2c17af // indirect
 	github.com/coreos/go-semver v0.3.0 // indirect
 	github.com/coreos/go-systemd/v22 v22.3.2 // indirect
-	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/fatih/structs v1.1.0 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
@@ -56,7 +56,7 @@ require (
 	github.com/jhump/protoreflect v1.8.2 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/compress v1.15.15 // indirect
-	github.com/klauspost/cpuid/v2 v2.2.3 // indirect
+	github.com/klauspost/cpuid/v2 v2.2.4 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/minio/md5-simd v1.1.2 // indirect
@@ -92,10 +92,10 @@ require (
 	go.uber.org/atomic v1.8.0 // indirect
 	go.uber.org/multierr v1.6.0 // indirect
 	go.uber.org/zap v1.17.0 // indirect
-	golang.org/x/arch v0.0.0-20220722155209-00200b7164a7 // indirect
+	golang.org/x/arch v0.2.0 // indirect
 	golang.org/x/crypto v0.6.0 // indirect
 	golang.org/x/net v0.7.0 // indirect
-	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
+	golang.org/x/sync v0.0.0-20220722155255-886fb9371eb4 // indirect
 	golang.org/x/sys v0.5.0 // indirect
 	golang.org/x/text v0.7.0 // indirect
 	google.golang.org/genproto v0.0.0-20210602131652-f16073e35f0c // indirect
