@@ -16,6 +16,7 @@ do
     if test -e ./build.sh
     then
         echo `pwd`'构建中'
+        export GOOS=linux
         sh ./build.sh
     fi
     cd ..
